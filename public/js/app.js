@@ -5,14 +5,22 @@ var room = getQueryVariable('room');
 
 socket.on('connect', function(){
 	console.log ('Connected to the sever');
+	socket.emit('joinRoom', {
+		name: name,
+		room: room
+	});
 });
+
+
+var $roomTitle = jQuery('.room-title');
+$roomTitle.text(room)
 
 socket.on('message', function(message){
 	var currentTime = moment.utc(message.timestamp);
 	var $messageDisplay=jQuery('.messages');
 	console.log('New message');
 	console.log(message.text);
-	//$messageDisplay.append('<p>'+ name +' joined ' + room +' room</p>');
+	
 	
 	$messageDisplay.append('<p>'+'<strong>'+ message.name + ' ' + currentTime.local().format('h:mma')+ ':</strong> ');
 	$messageDisplay.append('<p>' + message.text +'</p>');
