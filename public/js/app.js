@@ -18,12 +18,14 @@ $roomTitle.text(room)
 socket.on('message', function(message){
 	var currentTime = moment.utc(message.timestamp);
 	var $messageDisplay=jQuery('.messages');
+	var $message = jQuery('<li class="list-group-item"></li>');
 	console.log('New message');
 	console.log(message.text);
 	
 	
-	$messageDisplay.append('<p>'+'<strong>'+ message.name + ' ' + currentTime.local().format('h:mma')+ ':</strong> ');
-	$messageDisplay.append('<p>' + message.text +'</p>');
+	$message.append('<p>'+'<strong>'+ message.name + ' ' + currentTime.local().format('h:mma')+ ':</strong> ');
+	$message.append('<p>' + message.text +'</p>');
+	$messageDisplay.append($message);
 });
 	
 // Handles submitting of new message
